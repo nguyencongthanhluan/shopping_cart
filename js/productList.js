@@ -10,4 +10,11 @@ function ProductList() {
     });
     return index;
   };
+  this.searchProduct = function (keyWord) {
+    var mangTimKiem = [];
+    mangTimKiem = this.arr.filter(function (item) {
+      return item.name.toLowerCase().indexOf(keyWord.toLowerCase()) !== -1;
+    });
+    return mangTimKiem;
+  };
 }

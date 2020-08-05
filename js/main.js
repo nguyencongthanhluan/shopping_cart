@@ -1,17 +1,18 @@
 var productList = new ProductList();
 
-const renderProduct = function () {
+const renderProduct = function (list = productList.arr) {
   var htmlContent = "";
-
-  for (var i = 0; i < productList.length; i++) {
+  for (var i = 0; i < list.length; i++) {
     //template string
-    htmlContent += `<div>
-        <img src=${productList[i].image} /> 
-        <h3>${productList[i].name}</h3>
-        <p>${productList[i].description}</p>
-        <p>${productList[i].price}</p>
-        <span>${productList[i].invetory}</span>
-        <p>${productList[i].raiting}</p>
+    var rating = this.showRating(list[i].rating);
+    htmlContent += `<div class="col-4">
+        <img src=${list[i].image} /> 
+        <h3>${list[i].name}</h3>
+        <p>${list[i].description}</p>
+        <h5>${list[i].price} $</h5>
+        <span>${list[i].invetory}</span>
+        <p>${rating}</p>
+        <button class="btn btn-success">ADD TO CART</button>
       </div>`;
   }
   document.getElementById("listProduct").innerHTML = htmlContent;
@@ -36,4 +37,25 @@ const fetchProduct = function () {
     .then(resolver)
     .catch(rejecter);
 };
-// fetchProduct();
+fetchProduct();
+
+getEle("search").addEventListener("keyup", function () {
+  var keyWord = getEle("search").value;
+  var mangTimKiem = productList.searchProduct(keyWord);
+  console.log(mangTimKiem);
+  renderProduct(mangTimKiem);
+});
+
+function getEle(id) {
+  return document.getElementById(id);
+}
+function showRating(rating) {
+  var result = [];
+  for (var i = 0; i <= rating; i++) {
+    result.push(`<i class="fas fa-star"></i>`);
+  }
+  for (var j = 0; j <= 5 - rating; j++) {
+    result.push(`<i class="far fa-star"></i>`);
+  }
+  return result;
+}

@@ -20,6 +20,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="./css/style.css" />
   </head>
   <body>
     <div class="container">
@@ -34,21 +35,18 @@
         />
         <br />
         <h4>Tìm kiếm theo loại sản phẩm</h4>
-        <select>
+        <select id="timkiem">
           <option>Sam sung</option>
           <option>Iphone</option>
         </select>
       </form>
-      <div class="row mt-4">
-        <div class="col-4" id="listProduct">
-          <div class="card p-2">
+      <div class="row mt-4" id="listProduct">
+        <div class="col-4">
+          <div class="p-2 card">
             <img src="" id="image" />
             <h3 id="name"></h3>
             <p id="description"></p>
-            <p
-              style="color: red; font-weight: 600; font-size: 20px;"
-              id="price"
-            ></p>
+            <h5 id="price"></h5>
             <span>Số lượng:</span> <span id="invetory"></span>
             <p id="rating"></p>
             <button class="btn btn-success">ADD TO CART</button>
@@ -79,7 +77,6 @@
             </p>
             <span>Số lượng:</span> <span id="invetory">10</span>
             <p id="rating"></p>
-            <button class="btn btn-success">ADD TO CART</button>
           </div>
         </div>
         <div class="col-4">
@@ -220,6 +217,7 @@
       crossorigin="anonymous"
     ></script>
     <script src="./js/productList.js"></script>
+    <script src="./js/product.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
     <script src="./js/main.js"></script>
   </body>
