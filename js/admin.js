@@ -178,6 +178,7 @@ this.findTypes = function () {
   } else if (obj === "ss") {
     var mang = productList.findType("samsung");
     console.log(mang);
+    renderProduct(mang);
   } else if (obj === "ip") {
     var mang = productList.findType("iphone");
     console.log(mang);

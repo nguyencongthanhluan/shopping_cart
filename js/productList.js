@@ -16,9 +16,9 @@ function ProductList() {
     for (var i = 0; i < this.arr.length; i++) {
       if (this.arr[i].type === key) {
         arr1[j] = this.arr[i];
-        return arr1;
+        j++;
       }
     }
-    return null;
+    return arr1;
   };
 }
