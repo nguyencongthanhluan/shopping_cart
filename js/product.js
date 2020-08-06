@@ -4,14 +4,14 @@ const Product = function (
   name,
   description,
   price,
-  invetory,
-  raiting
+  inventory,
+  rating
 ) {
   this.image = img;
   this.name = name;
   this.id = id;
   this.description = description;
   this.price = price;
-  this.invetory = invetory;
-  this.raiting = raiting;
+  this.inventory = inventory;
+  this.rating = rating;
 };
