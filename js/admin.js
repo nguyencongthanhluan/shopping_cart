@@ -2,22 +2,24 @@ var productList = new ProductList();
 
 const addProduct = function () {
   const id = getEle("id").value;
-  const img = getEle("img").value;
+  const image = getEle("image").value;
   const name = getEle("name").value;
   const description = getEle("description").value;
   const price = getEle("price").value;
   const inventory = getEle("inventory").value;
   const rating = getEle("rating").value;
+  const type = getEle("type").value;
 
-  const newProduct = new Product(
-    id,
-    img,
-    name,
-    description,
-    price,
-    inventory,
-    rating
-  );
+  const newProduct = {
+    id: id,
+    image: image,
+    name: name,
+    description: description,
+    price: price,
+    inventory: inventory,
+    rating: rating,
+    type: type,
+  };
   axios({
     method: "POST",
     url: "https://5bd2959ac8f9e400130cb7e9.mockapi.io/api/products",
@@ -47,31 +49,34 @@ function editProduct(id) {
   var product = productList.getProductById(id);
 
   getEle("id").value = product.id;
-  getEle("img").value = product.img;
+  getEle("image").value = product.image;
   getEle("name").value = product.name;
   getEle("description").value = product.description;
   getEle("price").value = product.price;
   getEle("inventory").value = product.inventory;
   getEle("rating").value = product.rating;
+  getEle("type").value = product.type;
 }
 function updateProduct() {
   const id = getEle("id").value;
-  const img = getEle("img").value;
+  const image = getEle("image").value;
   const name = getEle("name").value;
   const description = getEle("description").value;
   const price = getEle("price").value;
   const inventory = getEle("inventory").value;
   const rating = getEle("rating").value;
+  const type = getEle("type").value;
 
-  const product = new Product(
-    id,
-    img,
-    name,
-    description,
-    price,
-    inventory,
-    rating
-  );
+  const product = {
+    id: id,
+    image: image,
+    name: name,
+    description: description,
+    price: price,
+    inventory: inventory,
+    rating: rating,
+    type: type,
+  };
 
   axios({
     method: "PUT",
@@ -90,13 +95,14 @@ const renderProduct = function (list = productList.arr) {
   for (var i = 0; i < list.length; i++) {
     //template string
     var rating = this.showRating(list[i].rating);
-    htmlContent += `<div class="col-4">
+    htmlContent += `<div class="col-4 pb-3 mt-3" style="border: 1px solid">
         <img src=${list[i].image} /> 
         <h3>${list[i].name}</h3>
         <p>${list[i].description}</p>
         <h5>${list[i].price} $</h5>
-        <span>${list[i].invetory}</span>
+        <span>${list[i].inventory}</span>
         <p>${rating}</p>
+        <p>${list[i].type}</p>
         <button class="btn btn-info" onclick="editProduct(${list[i].id})">Edit</button>
         <button class="btn btn-danger" onclick="deleteProduct(${list[i].id})">Delete</button>
       </div>`;
@@ -125,22 +131,56 @@ const fetchProduct = function () {
 };
 fetchProduct();
 
-getEle("search").addEventListener("keyup", function () {
-  var keyWord = getEle("search").value;
-  var mangTimKiem = productList.searchProduct(keyWord);
-  console.log(mangTimKiem);
-  renderProduct(mangTimKiem);
-});
+function sort(arr) {
+  // var arr = [];
+  arr.sort(function (a, b) {
+    var nameA = a.name.toUpperCase(); // bỏ qua hoa thường
+    var nameB = b.name.toUpperCase();
+    if (nameA < nameB) {
+      return -1;
+    }
+    if (nameA > nameB) {
+      return 1;
+    }
+    // name trùng nhau
+    return 0;
+  });
+}
+this.sortProduct = function () {
+  var key = getEle("sapxep").value;
+  var arrSort = productList.arr;
+  if (key === "az") {
+    // console.log(arrSort);
+    var a = sort(arrSort);
+    renderProduct(a);
+  } else if (key === "za") {
+    var mangDaoNguoc = arrSort.reverse();
+    renderProduct(mangDaoNguoc.arr);
+  }
+};
 function getEle(id) {
   return document.getElementById(id);
 }
 function showRating(rating) {
   var result = [];
-  for (var i = 0; i <= rating; i++) {
+  for (var i = 1; i <= rating; i++) {
     result.push(`<i class="fas fa-star"></i>`);
   }
-  for (var j = 0; j <= 5 - rating; j++) {
+  for (var j = 1; j <= 5 - rating; j++) {
     result.push(`<i class="far fa-star"></i>`);
   }
   return result;
 }
+
+this.findTypes = function () {
+  var obj = getEle("timkiem").value;
+  if (obj === "") {
+  } else if (obj === "ss") {
+    var mang = productList.findType("samsung");
+    console.log(mang);
+  } else if (obj === "ip") {
+    var mang = productList.findType("iphone");
+    console.log(mang);
+    renderProduct(mang);
+  }
+};
