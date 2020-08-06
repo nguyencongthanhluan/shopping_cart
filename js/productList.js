@@ -10,11 +10,15 @@ function ProductList() {
     });
     return index;
   };
-  this.searchProduct = function (keyWord) {
-    var mangTimKiem = [];
-    mangTimKiem = this.arr.filter(function (item) {
-      return item.name.toLowerCase().indexOf(keyWord.toLowerCase()) !== -1;
-    });
-    return mangTimKiem;
+  this.findType = function (key) {
+    var arr1 = [];
+    var j = 0;
+    for (var i = 0; i < this.arr.length; i++) {
+      if (this.arr[i].type === key) {
+        arr1[j] = this.arr[i];
+        return arr1;
+      }
+    }
+    return null;
   };
 }
