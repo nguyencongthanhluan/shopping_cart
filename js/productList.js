@@ -3,12 +3,12 @@ function ProductList() {
   this.addProduct = function (product) {
     this.arr.push(product);
   };
-  this.findIndexProduct = function (id) {
-    var index = -1;
-    index = this.arr.findIndex(function (item) {
+  this.getProductById = function (id) {
+    var product;
+    product = this.arr.find(function (item) {
       return parseInt(item.id) === parseInt(id);
     });
-    return index;
+    return product;
   };
   this.findType = function (key) {
     var arr1 = [];
