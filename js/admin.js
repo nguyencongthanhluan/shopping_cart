@@ -131,7 +131,7 @@ const fetchProduct = function () {
 };
 fetchProduct();
 
-function sort(arr) {
+function sortAToZ(arr) {
   // var arr = [];
   arr.sort(function (a, b) {
     var nameA = a.name.toUpperCase(); // bỏ qua hoa thường
@@ -146,16 +146,31 @@ function sort(arr) {
     return 0;
   });
 }
-this.sortProduct = function () {
+function sortZToA(arr) {
+  // var arr = [];
+  arr.sort(function (a, b) {
+    var nameA = a.name.toUpperCase(); // bỏ qua hoa thường
+    var nameB = b.name.toUpperCase();
+    if (nameA < nameB) {
+      return 1;
+    }
+    if (nameA > nameB) {
+      return -1;
+    }
+    // name trùng nhau
+    return 0;
+  });
+}
+const sortProduct = function () {
   var key = getEle("sapxep").value;
   var arrSort = productList.arr;
   if (key === "az") {
     // console.log(arrSort);
-    var a = sort(arrSort);
+    var a = sortAToZ(arrSort);
     renderProduct(a);
   } else if (key === "za") {
-    var mangDaoNguoc = arrSort.reverse();
-    renderProduct(mangDaoNguoc.arr);
+    var a = sortZToA(arrSort);
+    renderProduct(a);
   }
 };
 function getEle(id) {
