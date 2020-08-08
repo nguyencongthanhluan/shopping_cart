@@ -28,14 +28,14 @@
       <form>
         <h4>Sắp xếp:</h4>
         <select id="sapxep" onchange="sortProduct(this)">
-          <option value=""> -- Chọn -- </option>
+          <option value="a"> -- Chọn -- </option>
           <option value="az">A-Z</option>
           <option value="za">Z-A</option>
         </select>
         <br />
         <h4>Tìm kiếm theo loại sản phẩm</h4>
         <select id="timkiem" onchange="findTypes(this)">
-          <option value=""> -- Chọn -- </option>
+          <option value="none"> -- Chọn -- </option>
           <option value="ss">Sam sung</option>
           <option value="ip">Iphone</option>
         </select>
@@ -70,6 +70,7 @@
           <table class="table">
             <thead>
               <tr>
+                <th>STT</th>
                 <th>Hình Ảnh</th>
                 <th>Sản Phẩm</th>
                 <th>Giá</th>
@@ -80,18 +81,18 @@
             </thead>
             <tbody id="tableCart">
               <tr>
-                <td>
-                  <img style="width: 200px;" src="" />
-                </td>
-                <td style="font-size: 25px;"></td>
                 <td></td>
                 <td>
-                  <div class="btn-group">
-                    <button class="btn btn-info border-right">-</button>
-                    <button class="btn btn-info border-left">+</button>
-                  </div>
+                  <img src="" id="image" />
                 </td>
+                <td id="name"></td>
+                <td id="price"></td>
+                <td id="invetory"></td>
               </tr>
+            </tbody>
+          </table>
+          <div class="col-12">
+            <table class="table">
               <tr>
                 <td></td>
                 <td></td>
@@ -106,8 +107,8 @@
                   </button>
                 </td>
               </tr>
-            </tbody>
-          </table>
+            </table>
+          </div>
         </div>
       </div>
     </div>
@@ -130,7 +131,7 @@
       crossorigin="anonymous"
     ></script>
     <script src="./js/productList.js"></script>
-
+    <script src="./js/cart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
     <script src="./js/main.js"></script>
   </body>

@@ -14,11 +14,19 @@ function ProductList() {
     var arr1 = [];
     var j = 0;
     for (var i = 0; i < this.arr.length; i++) {
-      if (this.arr[i].type === key) {
+      if (this.arr[i].type.toLowerCase() === key) {
         arr1[j] = this.arr[i];
         j++;
       }
     }
     return arr1;
   };
+  this.addToCart = function (id) {
+    var arrCart;
+    arrCart = this.arr.find(function (item) {
+      return parseInt(item.id) === parseInt(id);
+    });
+    return arrCart;
+  };
+  this.checkNameTrung() = function (name) {};
 }

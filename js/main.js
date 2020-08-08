@@ -13,29 +13,12 @@ const renderProduct = function (list = productList.arr) {
         <span>${list[i].invetory}</span>
         <p>${rating}</p>
         <p>${list[i].type}</p>
-        <button class="btn btn-success">ADD TO CART</button>
+        <button class="btn btn-success"  onclick="addCart(${list[i].id})" >ADD TO CART</button>
       </div>`;
   }
   document.getElementById("listProduct").innerHTML = htmlContent;
 };
 //
-const renderCart = function (list = productList.arr) {
-  var htmlContent = "";
-  for (var i = 0; i < list.length; i++) {
-    //template string
-    htmlContent += `<tr>
-		<td>${i + 1}</td>
-		<td> <img src=${list[i].image} /> </td>
-		<td>${list[i].name}</td>
-		<td>${list[i].price}</td>
-    <td>${list[i].invetory}</td>
-    <td>"tong tien"</td>
-    <td><button class="btn btn-info">x</button></td>
-		<td><button class="btn btn-info"></button></td>
-    </tr>`;
-  }
-  document.getElementById("tableCart").innerHTML = htmlContent;
-};
 
 //get list product
 const fetchProduct = function () {
@@ -59,7 +42,7 @@ const fetchProduct = function () {
 fetchProduct();
 
 // 1.1: sort
-function sort(arr) {
+function sortAZ(arr) {
   // var arr = [];
   arr.sort(function (a, b) {
     var nameA = a.name.toUpperCase(); // bỏ qua hoa thường
@@ -74,16 +57,31 @@ function sort(arr) {
     return 0;
   });
 }
-this.sortProduct = function () {
+function sortZA(arr) {
+  // var arr = [];
+  arr.sort(function (a, b) {
+    var nameA = a.name.toUpperCase(); // bỏ qua hoa thường
+    var nameB = b.name.toUpperCase();
+    if (nameA < nameB) {
+      return 1;
+    }
+    if (nameA > nameB) {
+      return -1;
+    }
+    // name trùng nhau
+    return 0;
+  });
+}
+const sortProduct = function () {
   var key = getEle("sapxep").value;
   var arrSort = productList.arr;
   if (key === "az") {
     // console.log(arrSort);
-    var a = sort(arrSort);
-    renderProduct(a);
+    var mang = sortAZ(arrSort);
+    renderProduct(mang);
   } else if (key === "za") {
-    var mangDaoNguoc = arrSort.reverse();
-    renderProduct(mangDaoNguoc.arr);
+    var mangDaoNguoc = sortZA(arrSort);
+    renderProduct(mangDaoNguoc);
   }
 };
 function getEle(id) {
@@ -101,7 +99,7 @@ function showRating(rating) {
 }
 
 //find type
-this.findTypes = function () {
+const findTypes = function () {
   var obj = getEle("timkiem").value;
   if (obj === "") {
   } else if (obj === "ss") {
@@ -112,5 +110,40 @@ this.findTypes = function () {
     var mang = productList.findType("iphone");
     console.log(mang);
     renderProduct(mang);
+  } else if (obj === "none") {
+    renderProduct(productList.arr);
   }
+};
+
+//render cart
+var cartList = [];
+const renderCart = function (list = cartList.arr) {
+  var htmlContent = "";
+  for (var i = 0; i < list.length; i++) {
+    //template string
+    htmlContent += `<tr>
+		<td>${i + 1}</td>
+		<td> <img src=${list[i].image} /> </td>
+		<td>${list[i].name}</td>
+		<td>${list[i].price}</td>
+    <td>${list[i].invetory}
+         <div class="btn-group">
+            <button class="btn btn-info border-right">-</button>
+            <button class="btn btn-info border-left">+</button>
+        </div>
+    </td>
+    <td>"tong tien"</td>
+    <td><button class="btn btn-info">x</button></td>
+    </tr>`;
+  }
+  document.getElementById("tableCart").innerHTML = htmlContent;
+};
+
+//add to cart
+const addCart = function (id) {
+  alert("Bạn đã chọn một sản phẩm");
+  var arrCart = productList.addToCart(id);
+  cartList.push(arrCart);
+  console.log(cartList);
+  renderCart(cartList);
 };
