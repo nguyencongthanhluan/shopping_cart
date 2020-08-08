@@ -187,7 +187,7 @@ function showRating(rating) {
   return result;
 }
 
-this.findTypes = function () {
+const findTypes = function () {
   var obj = getEle("timkiem").value;
   if (obj === "") {
   } else if (obj === "ss") {
