@@ -10,7 +10,7 @@ const renderProduct = function (list = productList.arr) {
         <h3>${list[i].name}</h3>
         <p>${list[i].description}</p>
         <h5>${list[i].price} $</h5>
-        <span>${list[i].invetory}</span>
+        <span>${list[i].inventory}</span>
         <p>${rating}</p>
         <p>${list[i].type}</p>
         <button class="btn btn-success"  onclick="addCart(${list[i].id})" >ADD TO CART</button>
@@ -19,6 +19,26 @@ const renderProduct = function (list = productList.arr) {
   document.getElementById("listProduct").innerHTML = htmlContent;
 };
 //
+<<<<<<< HEAD
+=======
+const renderCart = function (list = productList.arr) {
+  var htmlContent = "";
+  for (var i = 0; i < list.length; i++) {
+    //template string
+    htmlContent += `<tr>
+		<td>${i + 1}</td>
+		<td> <img src=${list[i].image} /> </td>
+		<td>${list[i].name}</td>
+		<td>${list[i].price}</td>
+    <td>${list[i].inventory}</td>
+    <td>"tong tien"</td>
+    <td><button class="btn btn-info">x</button></td>
+		<td><button class="btn btn-info"></button></td>
+    </tr>`;
+  }
+  document.getElementById("tableCart").innerHTML = htmlContent;
+};
+>>>>>>> 9774a522c2c7716ddc5bcb1e397381f72ce19c97
 
 //get list product
 const fetchProduct = function () {
@@ -42,7 +62,11 @@ const fetchProduct = function () {
 fetchProduct();
 
 // 1.1: sort
+<<<<<<< HEAD
 function sortAZ(arr) {
+=======
+function sortAToZ(arr) {
+>>>>>>> 9774a522c2c7716ddc5bcb1e397381f72ce19c97
   // var arr = [];
   arr.sort(function (a, b) {
     var nameA = a.name.toUpperCase(); // bỏ qua hoa thường
@@ -57,7 +81,11 @@ function sortAZ(arr) {
     return 0;
   });
 }
+<<<<<<< HEAD
 function sortZA(arr) {
+=======
+function sortZToA(arr) {
+>>>>>>> 9774a522c2c7716ddc5bcb1e397381f72ce19c97
   // var arr = [];
   arr.sort(function (a, b) {
     var nameA = a.name.toUpperCase(); // bỏ qua hoa thường
@@ -77,11 +105,19 @@ const sortProduct = function () {
   var arrSort = productList.arr;
   if (key === "az") {
     // console.log(arrSort);
+<<<<<<< HEAD
     var mang = sortAZ(arrSort);
     renderProduct(mang);
   } else if (key === "za") {
     var mangDaoNguoc = sortZA(arrSort);
     renderProduct(mangDaoNguoc);
+=======
+    var a = sortAToZ(arrSort);
+    renderProduct(a);
+  } else if (key === "za") {
+    var a = sortZToA(arrSort);
+    renderProduct(a);
+>>>>>>> 9774a522c2c7716ddc5bcb1e397381f72ce19c97
   }
 };
 function getEle(id) {
