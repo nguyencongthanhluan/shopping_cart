@@ -10,7 +10,7 @@ const renderProduct = function (list = productList.arr) {
         <h3>${list[i].name}</h3>
         <p>${list[i].description}</p>
         <h5>${list[i].price} $</h5>
-        <span>${list[i].invetory}</span>
+        <span>${list[i].inventory}</span>
         <p>${rating}</p>
         <p>${list[i].type}</p>
         <button class="btn btn-success">ADD TO CART</button>
@@ -28,7 +28,7 @@ const renderCart = function (list = productList.arr) {
 		<td> <img src=${list[i].image} /> </td>
 		<td>${list[i].name}</td>
 		<td>${list[i].price}</td>
-    <td>${list[i].invetory}</td>
+    <td>${list[i].inventory}</td>
     <td>"tong tien"</td>
     <td><button class="btn btn-info">x</button></td>
 		<td><button class="btn btn-info"></button></td>
@@ -59,7 +59,7 @@ const fetchProduct = function () {
 fetchProduct();
 
 // 1.1: sort
-function sort(arr) {
+function sortAToZ(arr) {
   // var arr = [];
   arr.sort(function (a, b) {
     var nameA = a.name.toUpperCase(); // bỏ qua hoa thường
@@ -74,16 +74,31 @@ function sort(arr) {
     return 0;
   });
 }
+function sortZToA(arr) {
+  // var arr = [];
+  arr.sort(function (a, b) {
+    var nameA = a.name.toUpperCase(); // bỏ qua hoa thường
+    var nameB = b.name.toUpperCase();
+    if (nameA < nameB) {
+      return 1;
+    }
+    if (nameA > nameB) {
+      return -1;
+    }
+    // name trùng nhau
+    return 0;
+  });
+}
 this.sortProduct = function () {
   var key = getEle("sapxep").value;
   var arrSort = productList.arr;
   if (key === "az") {
     // console.log(arrSort);
-    var a = sort(arrSort);
+    var a = sortAToZ(arrSort);
     renderProduct(a);
   } else if (key === "za") {
-    var mangDaoNguoc = arrSort.reverse();
-    renderProduct(mangDaoNguoc.arr);
+    var a = sortZToA(arrSort);
+    renderProduct(a);
   }
 };
 function getEle(id) {
