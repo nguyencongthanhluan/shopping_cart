@@ -89,7 +89,7 @@ function sortZToA(arr) {
     return 0;
   });
 }
-this.sortProduct = function () {
+const sortProduct = function () {
   var key = getEle("sapxep").value;
   var arrSort = productList.arr;
   if (key === "az") {
@@ -116,7 +116,7 @@ function showRating(rating) {
 }
 
 //find type
-this.findTypes = function () {
+const findTypes = function () {
   var obj = getEle("timkiem").value;
   if (obj === "") {
   } else if (obj === "ss") {
