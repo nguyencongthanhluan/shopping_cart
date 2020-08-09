@@ -1,4 +1,5 @@
 var productList = new ProductList();
+var validation = new Validation();
 
 const addProduct = function () {
   const id = getEle("id").value;
@@ -9,6 +10,75 @@ const addProduct = function () {
   const inventory = getEle("inventory").value;
   const rating = getEle("rating").value;
   const type = getEle("type").value;
+
+  var isValid = true;
+  //checkId
+  isValid &=
+    validation.checkEmpty(id, "Mời nhập mã sản phẩm", "tb-id") &&
+    validation.checkLength(id, "Nhập < 100", "tb-id", 0, 3) &&
+    validation.checkNumber(id, "Mời nhập số", "tb-id") &&
+    validation.checkTrungMa(
+      id,
+      "Mã bị trùng, mời nhập mã khác",
+      "tb-id",
+      productList.arr
+    );
+  //checkImage
+  isValid &=
+    validation.checkEmpty(image, "Mời nhập link hình ảnh", "tb-image") &&
+    validation.checkTrungHinh(
+      image,
+      "Hình bị trùng, mời nhập hình khác",
+      "tb-image",
+      productList.arr
+    );
+  //checkName
+  isValid &=
+    validation.checkEmpty(name, "Mời nhập tên sản phẩm", "tb-name") &&
+    validation.checkTrungTen(
+      name,
+      "Tên bị trùng, mời nhập tên khác",
+      "tb-name",
+      productList.arr
+    ) &&
+    validation.checkLength(name, "Nhập < 20 ký tự", "tb-name", 0, 21);
+  //checkDescription
+  isValid &=
+    validation.checkEmpty(
+      description,
+      "Nhập mô tả sản phẩm",
+      "tb-description"
+    ) &&
+    validation.checkLength(
+      description,
+      "Nhập < 50 ký tự",
+      "tb-description",
+      0,
+      51
+    );
+  //checkPrice
+  isValid &=
+    validation.checkEmpty(price, "Nhập giá sản phẩm", "tb-price") &&
+    validation.checkNumber(price, "Mời nhập số", "tb-price") &&
+    validation.checkLength(price, "Nhập < 100", "tb-price", 0, 3);
+  //checkInventory
+  isValid &=
+    validation.checkEmpty(inventory, "Nhập hàng tồn kho", "tb-inventory") &&
+    validation.checkNumber(inventory, "Mời nhập số", "tb-inventory") &&
+    validation.checkLength(inventory, "Nhập < 100", "tb-inventory", 0, 3);
+  //checkRating
+  isValid &=
+    validation.checkEmpty(rating, "Nhập số sao", "tb-rating") &&
+    validation.checkNumber(rating, "Mời nhập số", "tb-rating") &&
+    validation.checkRating(rating, "Mời nhập <= 5", "tb-rating");
+  //checkType
+  isValid &=
+    validation.checkEmpty(type, "Nhập samsung hoặc iphone", "tb-type") &&
+    validation.checkType(type, "Nhập samsung hoặc iphone", "tb-type");
+
+  if (!isValid) {
+    return;
+  }
 
   const newProduct = {
     id: id,
