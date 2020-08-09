@@ -131,7 +131,7 @@ const fetchProduct = function () {
 };
 fetchProduct();
 
-function sortAToZ(arr) {
+function sortAZ(arr) {
   // var arr = [];
   arr.sort(function (a, b) {
     var nameA = a.name.toUpperCase(); // bỏ qua hoa thường
@@ -146,7 +146,7 @@ function sortAToZ(arr) {
     return 0;
   });
 }
-function sortZToA(arr) {
+function sortZA(arr) {
   // var arr = [];
   arr.sort(function (a, b) {
     var nameA = a.name.toUpperCase(); // bỏ qua hoa thường
@@ -166,11 +166,11 @@ const sortProduct = function () {
   var arrSort = productList.arr;
   if (key === "az") {
     // console.log(arrSort);
-    var a = sortAToZ(arrSort);
-    renderProduct(a);
+    var mang = sortAZ(arrSort);
+    renderProduct(mang);
   } else if (key === "za") {
-    var a = sortZToA(arrSort);
-    renderProduct(a);
+    var mangDaoNguoc = sortZA(arrSort);
+    renderProduct(mangDaoNguoc);
   }
 };
 function getEle(id) {
@@ -178,11 +178,18 @@ function getEle(id) {
 }
 function showRating(rating) {
   var result = [];
-  for (var i = 1; i <= rating; i++) {
-    result.push(`<i class="fas fa-star"></i>`);
-  }
-  for (var j = 1; j <= 5 - rating; j++) {
-    result.push(`<i class="far fa-star"></i>`);
+  if (rating <= 5) {
+    for (var i = 1; i <= rating; i++) {
+      result.push(`<i class="fas fa-star"></i>`);
+    }
+    for (var j = 1; j <= 5 - rating; j++) {
+      result.push(`<i class="far fa-star"></i>`);
+    }
+  } else {
+    rating = 5;
+    for (var i = 1; i <= rating; i++) {
+      result.push(`<i class="fas fa-star"></i>`);
+    }
   }
   return result;
 }
