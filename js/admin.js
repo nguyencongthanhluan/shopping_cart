@@ -102,6 +102,15 @@ const addProduct = function () {
     .catch(function (err) {
       console.log(err);
     });
+
+  getEle("id").value = "";
+  getEle("image").value = "";
+  getEle("name").value = "";
+  getEle("description").value = "";
+  getEle("price").value = "";
+  getEle("inventory").value = "";
+  getEle("rating").value = "";
+  getEle("type").value = "";
 };
 function deleteProduct(id) {
   axios({
@@ -159,6 +168,15 @@ function updateProduct() {
     .catch(function (err) {
       console.log(err);
     });
+
+  getEle("id").value = "";
+  getEle("image").value = "";
+  getEle("name").value = "";
+  getEle("description").value = "";
+  getEle("price").value = "";
+  getEle("inventory").value = "";
+  getEle("rating").value = "";
+  getEle("type").value = "";
 }
 const renderProduct = function (list = productList.arr) {
   var htmlContent = "";
@@ -275,5 +293,7 @@ const findTypes = function () {
     var mang = productList.findType("iphone");
     console.log(mang);
     renderProduct(mang);
+  } else if (obj === "none") {
+    renderProduct(productList.arr);
   }
 };
