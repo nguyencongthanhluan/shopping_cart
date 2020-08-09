@@ -18,28 +18,6 @@ const renderProduct = function (list = productList.arr) {
   }
   document.getElementById("listProduct").innerHTML = htmlContent;
 };
-//
-<<<<<<< HEAD
-=======
-const renderCart = function (list = productList.arr) {
-  var htmlContent = "";
-  for (var i = 0; i < list.length; i++) {
-    //template string
-    htmlContent += `<tr>
-		<td>${i + 1}</td>
-		<td> <img src=${list[i].image} /> </td>
-		<td>${list[i].name}</td>
-		<td>${list[i].price}</td>
-    <td>${list[i].inventory}</td>
-    <td>"tong tien"</td>
-    <td><button class="btn btn-info">x</button></td>
-		<td><button class="btn btn-info"></button></td>
-    </tr>`;
-  }
-  document.getElementById("tableCart").innerHTML = htmlContent;
-};
->>>>>>> 9774a522c2c7716ddc5bcb1e397381f72ce19c97
-
 //get list product
 const fetchProduct = function () {
   //ham xu ly khi lay du lieu thanh cong
@@ -62,11 +40,7 @@ const fetchProduct = function () {
 fetchProduct();
 
 // 1.1: sort
-<<<<<<< HEAD
 function sortAZ(arr) {
-=======
-function sortAToZ(arr) {
->>>>>>> 9774a522c2c7716ddc5bcb1e397381f72ce19c97
   // var arr = [];
   arr.sort(function (a, b) {
     var nameA = a.name.toUpperCase(); // bỏ qua hoa thường
@@ -81,11 +55,7 @@ function sortAToZ(arr) {
     return 0;
   });
 }
-<<<<<<< HEAD
 function sortZA(arr) {
-=======
-function sortZToA(arr) {
->>>>>>> 9774a522c2c7716ddc5bcb1e397381f72ce19c97
   // var arr = [];
   arr.sort(function (a, b) {
     var nameA = a.name.toUpperCase(); // bỏ qua hoa thường
@@ -105,19 +75,11 @@ const sortProduct = function () {
   var arrSort = productList.arr;
   if (key === "az") {
     // console.log(arrSort);
-<<<<<<< HEAD
     var mang = sortAZ(arrSort);
     renderProduct(mang);
   } else if (key === "za") {
     var mangDaoNguoc = sortZA(arrSort);
     renderProduct(mangDaoNguoc);
-=======
-    var a = sortAToZ(arrSort);
-    renderProduct(a);
-  } else if (key === "za") {
-    var a = sortZToA(arrSort);
-    renderProduct(a);
->>>>>>> 9774a522c2c7716ddc5bcb1e397381f72ce19c97
   }
 };
 function getEle(id) {
@@ -125,11 +87,18 @@ function getEle(id) {
 }
 function showRating(rating) {
   var result = [];
-  for (var i = 1; i <= rating; i++) {
-    result.push(`<i class="fas fa-star"></i>`);
-  }
-  for (var j = 1; j <= 5 - rating; j++) {
-    result.push(`<i class="far fa-star"></i>`);
+  if (rating <= 5) {
+    for (var i = 1; i <= rating; i++) {
+      result.push(`<i class="fas fa-star"></i>`);
+    }
+    for (var j = 1; j <= 5 - rating; j++) {
+      result.push(`<i class="far fa-star"></i>`);
+    }
+  } else {
+    rating = 5;
+    for (var i = 1; i <= rating; i++) {
+      result.push(`<i class="fas fa-star"></i>`);
+    }
   }
   return result;
 }
@@ -178,7 +147,7 @@ const renderCart = function (list = cartList.arr) {
 //add to cart
 const addCart = function (id) {
   alert("Bạn đã chọn một sản phẩm");
-  var arrCart = productList.addToCart(id);
+  var arrCart = productList.getProductById(id);
   cartList.push(arrCart);
   console.log(cartList);
   renderCart(cartList);

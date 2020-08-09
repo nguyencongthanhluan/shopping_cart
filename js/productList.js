@@ -21,12 +21,4 @@ function ProductList() {
     }
     return arr1;
   };
-  this.addToCart = function (id) {
-    var arrCart;
-    arrCart = this.arr.find(function (item) {
-      return parseInt(item.id) === parseInt(id);
-    });
-    return arrCart;
-  };
-  this.checkNameTrung() = function (name) {};
 }
