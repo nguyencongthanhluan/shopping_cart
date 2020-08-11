@@ -135,8 +135,12 @@ const renderCart = function (list = cartList.arr) {
 		<td>${list[i].price}</td>
     <td>${list[i].quantity}
          <div class="btn-group">
-            <button class="btn btn-info border-right">-</button>
-            <button class="btn btn-info border-left">+</button>
+            <button class="btn btn-info border-right" onclick="onUpdateQuantity(${
+              (list[i].id, list[i].quantity - 1)
+            })" >-</button>
+            <button class="btn btn-info border-left" onclick="onUpdateQuantity(${
+              (list[i].id, list[i].quantity + 1)
+            })">+</button>
         </div>
     </td>
     <td id="calcSum">${list[i].price * list[i].quantity}</td>
@@ -239,3 +243,13 @@ const clearCart = function () {
   renderCart(cartList);
 };
 getLocalStorage();
+
+// function onUpdateQuantity(id, quantity) {
+//   var index = getCartById(id);
+//   if (index !== -1) {
+//     cartList[index].quantity += quantity;
+//     console.log(cartList[index].quantity);
+//   } else {
+//     addCart(id);
+//   }
+// }
