@@ -10,7 +10,7 @@ const renderProduct = function (list = productList.arr) {
         <h3>${list[i].name}</h3>
         <p>${list[i].description}</p>
         <h5>${list[i].price} $</h5>
-        <span>${list[i].inventory}</span>
+        <span>${list[i].quantity}</span>
         <p>${rating}</p>
         <p>${list[i].type}</p>
         <button class="btn btn-success"  onclick="addCart(${list[i].id})" >ADD TO CART</button>
@@ -85,6 +85,7 @@ const sortProduct = function () {
 function getEle(id) {
   return document.getElementById(id);
 }
+//show rating
 function showRating(rating) {
   var result = [];
   if (rating <= 5) {
@@ -131,24 +132,123 @@ const renderCart = function (list = cartList.arr) {
 		<td> <img src=${list[i].image} /> </td>
 		<td>${list[i].name}</td>
 		<td>${list[i].price}</td>
-    <td>${list[i].invetory}
+    <td>${list[i].quantity}
          <div class="btn-group">
             <button class="btn btn-info border-right">-</button>
             <button class="btn btn-info border-left">+</button>
         </div>
     </td>
-    <td>"tong tien"</td>
-    <td><button class="btn btn-info">x</button></td>
+    <td id="calcSum">${list[i].price * list[i].quantity}</td>
+    <td><button class="btn btn-info" onclick="removeProductInCart(${
+      list[i].id
+    })" >x</button></td>
     </tr>`;
   }
+  htmlContent += `<tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td style="font-size: 30px;" class="font-weight-bold">
+      Tổng Tiền
+    </td>
+    <td style="font-size: 30px;" class="font-weight-bold" >
+    </td>
+    <td>
+      <button style="font-size: 30px;" class="btn btn-info" onclick="clearCart()" >
+        Thanh Toán
+      </button>
+    </td>
+</tr>`;
   document.getElementById("tableCart").innerHTML = htmlContent;
 };
 
 //add to cart
 const addCart = function (id) {
   alert("Bạn đã chọn một sản phẩm");
+  document.getElementById("cartArr_content").style.display = "block";
   var arrCart = productList.getProductById(id);
-  cartList.push(arrCart);
+  var image = arrCart.image;
+  var name = arrCart.name;
+  var price = arrCart.price;
+  var quantity = arrCart.quantity;
+  var id = arrCart.id;
+  var cartNew = new CartList(image, name, price, quantity, id);
+  cartList.push(cartNew);
   console.log(cartList);
+  if (cartList.length == 0) {
+    cartList.push(cartNew);
+  } else {
+    let newArr = cartList.filter((item) => {
+      return cartNew.id === item.id;
+    });
+    if (newArr.length > 0) {
+      for (var i = 0; i < cartList.length; i++) {
+        if (cartList[i].id === newArr[0].id) {
+          cartList[i].quantity++;
+        }
+      }
+    } else {
+      cartList.push(cartNew);
+    }
+  }
+
+  renderCart(cartList);
+  setLocalStorage();
+};
+getLocalStorage();
+const calcTotalAmount = function (cart) {
+  // var total = 0;
+  // if (cart.length > 0) {
+  //   for (var i = 0; i < cart.length; i++) {
+  //     total += cart[i].price * cart[i].inventory;
+  //   }
+  // }
+  // return total;
+  var tong = document.getElementById("calcSum");
+  console.log(tong);
+};
+
+//get index cart
+const getCartById = function (id) {
+  var index = -1;
+  index = cartList.findIndex(function (item) {
+    return parseInt(item.id) === parseInt(id);
+  });
+  return index;
+};
+//delete product in cart
+const removeProductInCart = function (id) {
+  var vitri = getCartById(id);
+  console.log(vitri);
+  if (vitri !== -1) {
+    cartList.splice(vitri, 1);
+    renderCart(cartList);
+    setLocalStorage();
+  }
+};
+
+//localStorage
+function setLocalStorage() {
+  /**
+   * Lưu mảng cart xuống localStorage
+   * Khi lưu xuống ép sang kiểu string
+   */
+  localStorage.setItem("ListCart", JSON.stringify(cartList));
+}
+
+function getLocalStorage() {
+  if (localStorage.getItem("ListCart")) {
+    /**
+     * lấy mảng cart dưới localStorage lên dùng
+     * Khi lấy lên để sử dụng ép sang kiểu Json
+     */
+    cartList = JSON.parse(localStorage.getItem("ListCart"));
+    renderCart(cartList);
+  }
+}
+
+//clear cart
+const clearCart = function () {
+  cartList = [];
   renderCart(cartList);
 };

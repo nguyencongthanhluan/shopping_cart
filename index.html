@@ -23,23 +23,50 @@
     <link rel="stylesheet" href="./css/style.css" />
   </head>
   <body>
+    <div>
+      <nav class="navbar navbar-expand-md bg-success navbar-dark">
+        <!-- Brand -->
+        <a class="navbar-brand" href="#">Home</a>
+
+        <!-- Toggler/collapsibe Button -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#collapsibleNavbar"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navbar links -->
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <form class="form_search">
+                <span class="item1">Sắp xếp:</span>
+                <select id="sapxep" onchange="sortProduct()">
+                  <option value="a"> -- Chọn -- </option>
+                  <option value="az">A-Z</option>
+                  <option value="za">Z-A</option>
+                </select>
+              </form>
+            </li>
+            <li class="nav-item">
+              <form class="form_search">
+                <span class="item2">Tìm kiếm theo loại sản phẩm:</span>
+                <select id="timkiem" onchange="findTypes()">
+                  <option value="none"> -- Chọn -- </option>
+                  <option value="ss">Sam sung</option>
+                  <option value="ip">Iphone</option>
+                </select>
+              </form>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
     <div class="container">
       <h1 class="display-4 text-center">Mua Hàng Online</h1>
-      <form>
-        <h4>Sắp xếp:</h4>
-        <select id="sapxep" onchange="sortProduct()">
-          <option value="a"> -- Chọn -- </option>
-          <option value="az">A-Z</option>
-          <option value="za">Z-A</option>
-        </select>
-        <br />
-        <h4>Tìm kiếm theo loại sản phẩm</h4>
-        <select id="timkiem" onchange="findTypes()">
-          <option value="none"> -- Chọn -- </option>
-          <option value="ss">Sam sung</option>
-          <option value="ip">Iphone</option>
-        </select>
-      </form>
       <div class="row mt-4" id="listProduct">
         <div class="col-4">
           <div class="p-2 card">
@@ -66,7 +93,7 @@
         <div class="col-12 mt-5">
           <h1 class="display-4">Giỏ Hàng</h1>
         </div>
-        <div class="col-12">
+        <div class="col-12" id="cartArr_content">
           <table class="table">
             <thead>
               <tr>
@@ -91,24 +118,6 @@
               </tr>
             </tbody>
           </table>
-          <div class="col-12">
-            <table class="table">
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td style="font-size: 30px;" class="font-weight-bold">
-                  Tổng Tiền
-                </td>
-                <td style="font-size: 30px;" class="font-weight-bold">15$</td>
-                <td>
-                  <button style="font-size: 30px;" class="btn btn-info">
-                    Thanh Toán
-                  </button>
-                </td>
-              </tr>
-            </table>
-          </div>
         </div>
       </div>
     </div>

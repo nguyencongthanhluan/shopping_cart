@@ -12,3 +12,14 @@
   width: 150px;
   height: 100px;
 }
+.form_search span {
+  color: white;
+}
+.item1 {
+  padding-left: 700px;
+  padding-right: 10px;
+}
+.item2 {
+  padding-left: 40px;
+  padding-right: 10px;
+}
