@@ -6,7 +6,7 @@ const renderProduct = function (list = productList.arr) {
     //template string
     var rating = this.showRating(list[i].rating);
     htmlContent += `<div class="col-4 pb-3 mt-3" style="border: 1px solid">
-        <img src=${list[i].image} /> 
+        <img class="pt-3" src=${list[i].image} /> 
         <h3>${list[i].name}</h3>
         <p>${list[i].description}</p>
         <h5>${list[i].price} $</h5>
@@ -136,11 +136,11 @@ const renderCart = function (list = cartList.arr) {
 		<td>${list[i].price}</td>
     <td>${list[i].quantity}
          <div class="btn-group">
-            <button class="btn btn-info border-right" onclick="onUpdateQuantity(${
-              (list[i].id, list[i].quantity - 1)
+            <button class="btn btn-info border-right" onclick="downButton(${
+              list[i].id
             })" >-</button>
-            <button class="btn btn-info border-left" onclick="onUpdateQuantity(${
-              (list[i].id, list[i].quantity + 1)
+            <button class="btn btn-info border-left" onclick="upButton(${
+              list[i].id
             })">+</button>
         </div>
     </td>
@@ -156,7 +156,7 @@ const renderCart = function (list = cartList.arr) {
     <td></td>
     <td></td>
     <td style="font-size: 30px;" class="font-weight-bold">
-      Tổng Tiền: ${sum}
+      Tổng Tiền: ${sum} VND
     </td>
     <td style="font-size: 30px;" class="font-weight-bold" >
     </td>
@@ -178,8 +178,8 @@ const total = function () {
 };
 //add to cart
 const addCart = function (id) {
+  getEle("thongbao").innerHTML = "Thêm vào giỏ hàng thành công!";
   const arrCart = productList.getProductById(id);
-
   const Id = arrCart.id;
   const image = arrCart.image;
   const name = arrCart.name;
@@ -200,6 +200,7 @@ const addCart = function (id) {
     type: type,
     quantity: 1,
   };
+
   console.log(cartList);
   if (cartList.length == 0) {
     cartList.push(cartItem);
@@ -257,6 +258,7 @@ const getCartById = function (id) {
 };
 //delete product in cart
 const removeProductInCart = function (id) {
+  getEle("thongbao").innerHTML = "Xóa sản phẩm thành công!";
   var vitri = getCartById(id);
   if (vitri !== -1) {
     cartList.splice(vitri, 1);
@@ -284,7 +286,7 @@ function getLocalStorage() {
 const clearCart = function () {
   if (cartList.length > 0) {
     cartList = [];
-    alert("Bạn đã mua hàng thành công");
+    getEle("thongbao").innerHTML = "Bạn đã mua hàng thành công!";
     total();
     renderCart(cartList);
     setLocalStorage();
@@ -293,13 +295,3 @@ const clearCart = function () {
   }
 };
 getLocalStorage();
-
-// function onUpdateQuantity(id, quantity) {
-//   var index = getCartById(id);
-//   if (index !== -1) {
-//     cartList[index].quantity += quantity;
-//     console.log(cartList[index].quantity);
-//   } else {
-//     addCart(id);
-//   }
-// }

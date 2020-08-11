@@ -22,68 +22,40 @@
     />
     <link rel="stylesheet" href="./css/style.css" />
   </head>
-  <div>
-    <nav class="navbar navbar-expand-md bg-success navbar-dark">
-      <!-- Brand -->
-      <a class="navbar-brand" href="#">Home</a>
-
-      <!-- Toggler/collapsibe Button -->
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#collapsibleNavbar"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <!-- Navbar links -->
-      <div class="collapse navbar-collapse" id="collapsibleNavbar">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <form class="form_search">
-              <span class="item1">Sắp xếp:</span>
-              <select id="sapxep" onchange="sortProduct()">
-                <option value="a"> -- Chọn -- </option>
-                <option value="az">A-Z</option>
-                <option value="za">Z-A</option>
-              </select>
-            </form>
-          </li>
-          <li class="nav-item">
-            <form class="form_search">
-              <span class="item2">Tìm kiếm theo loại sản phẩm:</span>
-              <select id="timkiem" onchange="findTypes()">
-                <option value="none"> -- Chọn -- </option>
-                <option value="ss">Sam sung</option>
-                <option value="ip">Iphone</option>
-              </select>
-            </form>
-          </li>
-        </ul>
-      </div>
-    </nav>
-  </div>
   <body>
     <div class="container">
-      <h1 class="display-4 text-center">Mua Hàng Online</h1>
+      <h1 class="display-4 text-center">QUẢN LÝ SẢN PHẨM</h1>
       <br /><br />
-      <input id="id" type="text" placeholder="id" /><br />
-      <span style="color: red;" id="tb-id"></span>
-      <input id="image" type="text" placeholder="image" /><br />
-      <span style="color: red;" id="tb-image"></span>
-      <input id="name" type="text" placeholder="name" /><br />
-      <span style="color: red;" id="tb-name"></span>
-      <input id="description" type="text" placeholder="description" /><br />
-      <span style="color: red;" id="tb-description"></span>
-      <input id="price" type="text" placeholder="price" /><br />
-      <span style="color: red;" id="tb-price"></span>
-      <input id="inventory" type="text" placeholder="inventory" /><br />
-      <span style="color: red;" id="tb-inventory"></span>
-      <input id="rating" type="text" placeholder="rating" /><br />
-      <span style="color: red;" id="tb-rating"></span>
-      <input id="type" type="text" placeholder="type" /><br />
-      <span style="color: red;" id="tb-type"></span>
+      <div class="row">
+        <div class="col-sm-6">
+          <p>ID:</p>
+          <input id="id" type="text" placeholder="id" /><br />
+          <span style="color: red;" id="tb-id"></span>
+          <p>Image:</p>
+          <input id="image" type="text" placeholder="image" /><br />
+          <span style="color: red;" id="tb-image"></span>
+          <p>Name:</p>
+          <input id="name" type="text" placeholder="name" /><br />
+          <span style="color: red;" id="tb-name"></span>
+          <p>Description</p>
+          <input id="description" type="text" placeholder="description" /><br />
+          <span style="color: red;" id="tb-description"></span>
+        </div>
+        <div class="col-sm-6">
+          <p>Price</p>
+          <input id="price" type="text" placeholder="price" /><br />
+          <span style="color: red;" id="tb-price"></span>
+          <p>Inventory</p>
+          <input id="inventory" type="text" placeholder="inventory" /><br />
+          <span style="color: red;" id="tb-inventory"></span>
+          <p>Rating</p>
+          <input id="rating" type="text" placeholder="rating" /><br />
+          <span style="color: red;" id="tb-rating"></span>
+          <p>Type</p>
+          <input id="type" type="text" placeholder="type" /><br />
+          <span style="color: red;" id="tb-type"></span>
+        </div>
+      </div>
       <br />
       <button class="btn btn-success" onclick="addProduct()">
         Thêm sản phẩm
