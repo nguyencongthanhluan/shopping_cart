@@ -123,6 +123,7 @@ const findTypes = function () {
 
 //render cart
 var cartList = [];
+
 const renderCart = function (list = cartList.arr) {
   var htmlContent = "";
   for (var i = 0; i < list.length; i++) {
@@ -142,6 +143,7 @@ const renderCart = function (list = cartList.arr) {
     <td><button class="btn btn-info" onclick="removeProductInCart(${
       list[i].id
     })" >x</button></td>
+    
     </tr>`;
   }
   htmlContent += `<tr>
@@ -175,38 +177,21 @@ const addCart = function (id) {
   var cartNew = new CartList(image, name, price, quantity, id);
   cartList.push(cartNew);
   console.log(cartList);
-  if (cartList.length == 0) {
-    cartList.push(cartNew);
-  } else {
-    let newArr = cartList.filter((item) => {
-      return cartNew.id === item.id;
-    });
-    if (newArr.length > 0) {
-      for (var i = 0; i < cartList.length; i++) {
-        if (cartList[i].id === newArr[0].id) {
-          cartList[i].quantity++;
-        }
-      }
-    } else {
-      cartList.push(cartNew);
-    }
-  }
-
   renderCart(cartList);
   setLocalStorage();
 };
-getLocalStorage();
-const calcTotalAmount = function (cart) {
-  // var total = 0;
-  // if (cart.length > 0) {
-  //   for (var i = 0; i < cart.length; i++) {
-  //     total += cart[i].price * cart[i].inventory;
-  //   }
-  // }
-  // return total;
-  var tong = document.getElementById("calcSum");
-  console.log(tong);
-};
+
+// const calcTotalAmount = function (cart) {
+//   // var total = 0;
+//   // if (cart.length > 0) {
+//   //   for (var i = 0; i < cart.length; i++) {
+//   //     total += cart[i].price * cart[i].inventory;
+//   //   }
+//   // }
+//   // return total;
+//   var tong = document.getElementById("calcSum");
+//   console.log(tong);
+// };
 
 //get index cart
 const getCartById = function (id) {
@@ -239,10 +224,11 @@ function setLocalStorage() {
 function getLocalStorage() {
   if (localStorage.getItem("ListCart")) {
     /**
-     * lấy mảng cart dưới localStorage lên dùng
+     * lấy mảng empl dưới localStorage lên dùng
      * Khi lấy lên để sử dụng ép sang kiểu Json
      */
     cartList = JSON.parse(localStorage.getItem("ListCart"));
+
     renderCart(cartList);
   }
 }
@@ -252,3 +238,4 @@ const clearCart = function () {
   cartList = [];
   renderCart(cartList);
 };
+getLocalStorage();
