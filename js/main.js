@@ -10,7 +10,7 @@ const renderProduct = function (list = productList.arr) {
         <h3>${list[i].name}</h3>
         <p>${list[i].description}</p>
         <h5>${list[i].price} $</h5>
-        <span>${list[i].quantity}</span>
+        <span>${list[i].inventory}</span>
         <p>${rating}</p>
         <p>${list[i].type}</p>
         <button class="btn btn-success"  onclick="addCart(${list[i].id})" >ADD TO CART</button>
@@ -123,6 +123,7 @@ const findTypes = function () {
 
 //render cart
 var cartList = [];
+var sum = 0;
 
 const renderCart = function (list = cartList.arr) {
   var htmlContent = "";
@@ -135,8 +136,12 @@ const renderCart = function (list = cartList.arr) {
 		<td>${list[i].price}</td>
     <td>${list[i].quantity}
          <div class="btn-group">
-            <button class="btn btn-info border-right">-</button>
-            <button class="btn btn-info border-left">+</button>
+            <button class="btn btn-info border-right" onclick="downButton(${
+              list[i].id
+            })" >-</button>
+            <button class="btn btn-info border-left" onclick="upButton(${
+              list[i].id
+            })">+</button>
         </div>
     </td>
     <td id="calcSum">${list[i].price * list[i].quantity}</td>
@@ -151,7 +156,7 @@ const renderCart = function (list = cartList.arr) {
     <td></td>
     <td></td>
     <td style="font-size: 30px;" class="font-weight-bold">
-      Tổng Tiền
+      Tổng Tiền: ${sum}
     </td>
     <td style="font-size: 30px;" class="font-weight-bold" >
     </td>
@@ -164,35 +169,84 @@ const renderCart = function (list = cartList.arr) {
   document.getElementById("tableCart").innerHTML = htmlContent;
 };
 
+const total = function () {
+  sum = 0;
+  console.log(cartList);
+  for (var i = 0; i < cartList.length; i++) {
+    sum = sum + cartList[i].price * cartList[i].quantity;
+  }
+};
 //add to cart
 const addCart = function (id) {
-  alert("Bạn đã chọn một sản phẩm");
-  document.getElementById("cartArr_content").style.display = "block";
-  var arrCart = productList.getProductById(id);
-  var image = arrCart.image;
-  var name = arrCart.name;
-  var price = arrCart.price;
-  var quantity = arrCart.quantity;
-  var id = arrCart.id;
-  var cartNew = new CartList(image, name, price, quantity, id);
-  cartList.push(cartNew);
+  // alert("Bạn đã chọn một sản phẩm");
+  const arrCart = productList.getProductById(id);
+
+  const Id = arrCart.id;
+  const image = arrCart.image;
+  const name = arrCart.name;
+  const description = arrCart.description;
+  const price = arrCart.price;
+  const inventory = arrCart.inventory;
+  const rating = arrCart.rating;
+  const type = arrCart.type;
+
+  const cartItem = {
+    id: Id,
+    image: image,
+    name: name,
+    description: description,
+    price: price,
+    inventory: inventory,
+    rating: rating,
+    type: type,
+    quantity: 1,
+  };
   console.log(cartList);
+  if (cartList.length == 0) {
+    cartList.push(cartItem);
+  } else {
+    let newArr = cartList.filter((item) => {
+      return cartItem.id === item.id;
+    });
+    if (newArr.length > 0) {
+      for (var i = 0; i < cartList.length; i++) {
+        if (cartList[i].id === newArr[0].id) {
+          cartList[i].quantity++;
+        }
+      }
+    } else {
+      cartList.push(cartItem);
+    }
+  }
+  total();
   renderCart(cartList);
   setLocalStorage();
 };
 
-// const calcTotalAmount = function (cart) {
-//   // var total = 0;
-//   // if (cart.length > 0) {
-//   //   for (var i = 0; i < cart.length; i++) {
-//   //     total += cart[i].price * cart[i].inventory;
-//   //   }
-//   // }
-//   // return total;
-//   var tong = document.getElementById("calcSum");
-//   console.log(tong);
-// };
+const upButton = function (id) {
+  for (var i = 0; i < cartList.length; i++) {
+    if (cartList[i].id == id) {
+      cartList[i].quantity++;
+    }
+  }
+  total();
+  renderCart(cartList);
+  setLocalStorage();
+};
 
+const downButton = function (id) {
+  for (var i = 0; i < cartList.length; i++) {
+    if (cartList[i].id == id) {
+      cartList[i].quantity--;
+      if (cartList[i].quantity <= 0) {
+        removeProductInCart(id);
+      }
+    }
+  }
+  total();
+  renderCart(cartList);
+  setLocalStorage();
+};
 //get index cart
 const getCartById = function (id) {
   var index = -1;
@@ -204,9 +258,9 @@ const getCartById = function (id) {
 //delete product in cart
 const removeProductInCart = function (id) {
   var vitri = getCartById(id);
-  console.log(vitri);
   if (vitri !== -1) {
     cartList.splice(vitri, 1);
+    total();
     renderCart(cartList);
     setLocalStorage();
   }
@@ -214,21 +268,14 @@ const removeProductInCart = function (id) {
 
 //localStorage
 function setLocalStorage() {
-  /**
-   * Lưu mảng cart xuống localStorage
-   * Khi lưu xuống ép sang kiểu string
-   */
   localStorage.setItem("ListCart", JSON.stringify(cartList));
+  localStorage.setItem("sum", JSON.stringify(sum));
 }
 
 function getLocalStorage() {
   if (localStorage.getItem("ListCart")) {
-    /**
-     * lấy mảng empl dưới localStorage lên dùng
-     * Khi lấy lên để sử dụng ép sang kiểu Json
-     */
     cartList = JSON.parse(localStorage.getItem("ListCart"));
-
+    sum = JSON.parse(localStorage.getItem("sum"));
     renderCart(cartList);
   }
 }
@@ -236,6 +283,9 @@ function getLocalStorage() {
 //clear cart
 const clearCart = function () {
   cartList = [];
+  alert("Bạn đã mua hàng thành công");
+  total();
   renderCart(cartList);
+  setLocalStorage();
 };
 getLocalStorage();

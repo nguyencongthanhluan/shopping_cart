@@ -50,6 +50,7 @@ function Validation() {
   };
 
   this.checkType = function (input, mess, spanId) {
+    input = input.toLowerCase();
     if (input === "samsung" || input === "iphone") {
       getEle(spanId).innerHTML = "";
       getEle(spanId).style.display = "none";

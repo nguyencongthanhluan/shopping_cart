@@ -22,25 +22,51 @@
     />
     <link rel="stylesheet" href="./css/style.css" />
   </head>
+  <div>
+    <nav class="navbar navbar-expand-md bg-success navbar-dark">
+      <!-- Brand -->
+      <a class="navbar-brand" href="#">Home</a>
 
+      <!-- Toggler/collapsibe Button -->
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#collapsibleNavbar"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Navbar links -->
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <form class="form_search">
+              <span class="item1">Sắp xếp:</span>
+              <select id="sapxep" onchange="sortProduct()">
+                <option value="a"> -- Chọn -- </option>
+                <option value="az">A-Z</option>
+                <option value="za">Z-A</option>
+              </select>
+            </form>
+          </li>
+          <li class="nav-item">
+            <form class="form_search">
+              <span class="item2">Tìm kiếm theo loại sản phẩm:</span>
+              <select id="timkiem" onchange="findTypes()">
+                <option value="none"> -- Chọn -- </option>
+                <option value="ss">Sam sung</option>
+                <option value="ip">Iphone</option>
+              </select>
+            </form>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
   <body>
     <div class="container">
       <h1 class="display-4 text-center">Mua Hàng Online</h1>
-      <form>
-        <h4>Sắp xếp:</h4>
-        <select id="sapxep" onchange="sortProduct()">
-          <option value="a"> -- Chọn -- </option>
-          <option value="az">A-Z</option>
-          <option value="za">Z-A</option>
-        </select>
-        <br />
-        <h4>Tìm kiếm theo loại sản phẩm</h4>
-        <select id="timkiem" onchange="findTypes()">
-          <option value="none"> -- Chọn -- </option>
-          <option value="ss">Sam sung</option>
-          <option value="ip">Iphone</option>
-        </select>
-      </form>
       <br /><br />
       <input id="id" type="text" placeholder="id" /><br />
       <span style="color: red;" id="tb-id"></span>
@@ -78,62 +104,6 @@
             <p id="type"></p>
             <button class="btn btn-success btn-cart">ADD TO CART</button>
           </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-12 mt-5">
-          <span class="bg-warning text-white px-3 py-2"
-            >Thêm Hàng Thành Công</span
-          >
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-12 mt-5">
-          <h1 class="display-4">Giỏ Hàng</h1>
-        </div>
-        <div class="col-12">
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Hình Ảnh</th>
-                <th>Sản Phẩm</th>
-                <th>Giá</th>
-                <th>Số Lượng</th>
-                <th>Tổng Cộng</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody id="tableCart">
-              <tr>
-                <td>
-                  <img style="width: 200px;" src="" />
-                </td>
-                <td style="font-size: 25px;"></td>
-                <td></td>
-                <td>
-                  <div class="btn-group">
-                    <button class="btn btn-info border-right">-</button>
-                    <button class="btn btn-info border-left">+</button>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td style="font-size: 30px;" class="font-weight-bold">
-                  Tổng Tiền
-                </td>
-                <td style="font-size: 30px;" class="font-weight-bold">15$</td>
-                <td>
-                  <button style="font-size: 30px;" class="btn btn-info">
-                    Thanh Toán
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
         </div>
       </div>
     </div>
