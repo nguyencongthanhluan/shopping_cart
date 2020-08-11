@@ -178,7 +178,6 @@ const total = function () {
 };
 //add to cart
 const addCart = function (id) {
-  // alert("Bạn đã chọn một sản phẩm");
   const arrCart = productList.getProductById(id);
 
   const Id = arrCart.id;
@@ -211,6 +210,7 @@ const addCart = function (id) {
     if (newArr.length > 0) {
       for (var i = 0; i < cartList.length; i++) {
         if (cartList[i].id === newArr[0].id) {
+          alert("Sản phẩm này đã có trong giỏ hàng");
           cartList[i].quantity++;
         }
       }
