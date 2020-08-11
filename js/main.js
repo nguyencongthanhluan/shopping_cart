@@ -121,7 +121,8 @@ const findTypes = function () {
 };
 
 //render cart
-var cartList = [];
+const cartList = [];
+
 const renderCart = function (list = cartList.arr) {
   var htmlContent = "";
   for (var i = 0; i < list.length; i++) {
@@ -131,14 +132,14 @@ const renderCart = function (list = cartList.arr) {
 		<td> <img src=${list[i].image} /> </td>
 		<td>${list[i].name}</td>
 		<td>${list[i].price}</td>
-    <td>${list[i].invetory}
+    <td>${list[i].quantity}
          <div class="btn-group">
             <button class="btn btn-info border-right">-</button>
             <button class="btn btn-info border-left">+</button>
         </div>
     </td>
     <td>"tong tien"</td>
-    <td><button class="btn btn-info">x</button></td>
+    <td><button class="btn btn-info">X</button></td>
     </tr>`;
   }
   document.getElementById("tableCart").innerHTML = htmlContent;
@@ -146,9 +147,45 @@ const renderCart = function (list = cartList.arr) {
 
 //add to cart
 const addCart = function (id) {
-  alert("Bạn đã chọn một sản phẩm");
-  var arrCart = productList.getProductById(id);
-  cartList.push(arrCart);
-  console.log(cartList);
+  // alert("Bạn đã chọn một sản phẩm");
+  const arrCart = productList.getProductById(id);
+
+  const Id = arrCart.id;
+  const image = arrCart.image;
+  const name = arrCart.name;
+  const description = arrCart.description;
+  const price = arrCart.price;
+  const inventory = arrCart.inventory;
+  const rating = arrCart.rating;
+  const type = arrCart.type;
+
+  const cartItem = {
+    id: Id,
+    image: image,
+    name: name,
+    description: description,
+    price: price,
+    inventory: inventory,
+    rating: rating,
+    type: type,
+    quantity: 1,
+  };
+
+  if (cartList.length == 0) {
+    cartList.push(cartItem);
+  } else {
+    let newArr = cartList.filter((item) => {
+      return cartItem.id === item.id;
+    });
+    if (newArr.length > 0) {
+      for (var i = 0; i < cartList.length; i++) {
+        if (cartList[i].id === newArr[0].id) {
+          cartList[i].quantity++;
+        }
+      }
+    } else {
+      cartList.push(cartItem);
+    }
+  }
   renderCart(cartList);
 };
