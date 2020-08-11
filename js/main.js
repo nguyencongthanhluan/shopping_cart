@@ -282,10 +282,14 @@ function getLocalStorage() {
 
 //clear cart
 const clearCart = function () {
-  cartList = [];
-  alert("Bạn đã mua hàng thành công");
-  total();
-  renderCart(cartList);
-  setLocalStorage();
+  if (cartList.length > 0) {
+    cartList = [];
+    alert("Bạn đã mua hàng thành công");
+    total();
+    renderCart(cartList);
+    setLocalStorage();
+  } else {
+    alert("Vui lòng thêm sản phẩm vào giỏ hàng");
+  }
 };
 getLocalStorage();
